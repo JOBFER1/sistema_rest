@@ -74,4 +74,10 @@ public class PublicacionServicioImpl implements PublicacionServicio {
 		Publicacion publicacionActualizada = publicacionRepositorio.save(publicacion);
 		return mapearDTO(publicacionActualizada);
 	}
+	
+	@Override
+	public void eliminarPublicacion(long id) {
+		Publicacion publicacion = publicacionRepositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publicacion", "id", id));
+		publicacionRepositorio.delete(publicacion);
+	}
 }

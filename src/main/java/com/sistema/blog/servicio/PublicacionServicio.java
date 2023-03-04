@@ -14,4 +14,6 @@ public interface PublicacionServicio {
 
 	public PublicacionDTO actualizarPublicacion(PublicacionDTO publicacionDTO, long id);
 	
+	public void eliminarPublicacion(long id);
+	
 }
