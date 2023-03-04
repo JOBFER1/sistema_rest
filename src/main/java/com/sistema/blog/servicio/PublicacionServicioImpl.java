@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sistema.blog.dto.PublicacionDTO;
 import com.sistema.blog.entidades.Publicacion;
+import com.sistema.blog.excepciones.ResourceNotFoundException;
 import com.sistema.blog.repositorio.PublicacionRepositorio;
 
 @Service
@@ -54,5 +55,11 @@ public class PublicacionServicioImpl implements PublicacionServicio {
 		publicacion.setDescripcion(publicacionDTO.getDescripcion());
 		publicacion.setContenido(publicacionDTO.getContenido());
 		return publicacion;
+	}
+
+	@Override
+	public PublicacionDTO obtenerPublicacionPorId(long id) {
+		Publicacion publicacion = publicacionRepositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publicacion", "id", id));
+		return mapearDTO(publicacion);
 	}
 }
