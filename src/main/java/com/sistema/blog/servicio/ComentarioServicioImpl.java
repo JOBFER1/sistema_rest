@@ -1,5 +1,8 @@
 package com.sistema.blog.servicio;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,12 @@ public class ComentarioServicioImpl implements ComentarioServicio{
 		comentario.setPublicacion(publicacion);
 		Comentario nuevoComentario = comentarioRepositorio.save(comentario);
 		return mapearDTO(nuevoComentario);
+	}
+	
+	@Override
+	public List<ComentarioDTO> obtenerComentariosPorPublicacionId(long publicacionId) {
+		List<Comentario> comentarios = comentarioRepositorio.findByPublicacionId(publicacionId);
+		return comentarios.stream().map(comentario -> mapearDTO(comentario)).collect(Collectors.toList());
 	}
 
 	private ComentarioDTO mapearDTO(Comentario comentario) {
