@@ -12,4 +12,6 @@ public interface ComentarioServicio {
 	
 	public ComentarioDTO obtenerComentarioPorId(Long publicacionId,Long comentarioId);
 	
+	public ComentarioDTO actualizarComentario(Long publicacionId,Long comentarioId,ComentarioDTO solicitudDeComentario);
+	
 }
