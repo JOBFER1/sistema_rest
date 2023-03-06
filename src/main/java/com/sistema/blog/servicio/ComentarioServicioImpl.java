@@ -75,6 +75,21 @@ public class ComentarioServicioImpl implements ComentarioServicio{
 		Comentario comentarioActualizado = comentarioRepositorio.save(comentario);
 		return mapearDTO(comentarioActualizado);
 	}	
+	
+	@Override
+	public void eliminarComentario(Long publicacionId, Long comentarioId) {
+		Publicacion publicacion = publicacionRepositorio.findById(publicacionId)
+				.orElseThrow(() -> new ResourceNotFoundException("Publicacion", "id", publicacionId));
+		
+		Comentario comentario = comentarioRepositorio.findById(comentarioId)
+				.orElseThrow(() -> new ResourceNotFoundException("Comentario", "id", comentarioId));
+		
+		if(!comentario.getPublicacion().getId().equals(publicacion.getId())) {
+			throw new BlogAppException(HttpStatus.BAD_REQUEST, "El comentario no pertenece a la publicación");
+		}
+		
+		comentarioRepositorio.delete(comentario);
+	}
 
 	private ComentarioDTO mapearDTO(Comentario comentario) {
 		ComentarioDTO comentarioDTO = new ComentarioDTO();

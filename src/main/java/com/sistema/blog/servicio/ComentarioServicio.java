@@ -14,4 +14,6 @@ public interface ComentarioServicio {
 	
 	public ComentarioDTO actualizarComentario(Long publicacionId,Long comentarioId,ComentarioDTO solicitudDeComentario);
 	
+	public void eliminarComentario(Long publicacionId,Long comentarioId);
+	
 }
